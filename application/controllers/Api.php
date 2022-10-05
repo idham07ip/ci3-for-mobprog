@@ -53,6 +53,26 @@ class Api extends CI_Controller
     echo json_encode($show);
   }
 
+  public function Loginn()
+  {
+    $email = urldecode($this->uri->segment(3));
+    $password = md5(urldecode($this->uri->segment(4)));
+
+    $query = $this->M_data->CheckLogin("user", $email, $password);
+    if ($query) {
+      $status = [
+        "status" => "Ok",
+        "result" => $query,
+      ];
+      echo json_encode($status);
+    } else {
+      $status = [
+        "status" => "Error",
+      ];
+      echo json_encode($status);
+    }
+  }
+
   //API untuk Ionic
   public function Login()
   {
